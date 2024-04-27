@@ -7,9 +7,9 @@
     {% block content %}
      <div class="py-3 bg-primary">
             <div class="container">
-                <a class="text-white" href="{% url 'home' %}">Bosh sahifa /</a>
-                <a class="text-white" href="{% url 'cat' %}">Kategoriyalar /</a>
-                <a class="text-white" href="{% url 'cat' %}">{{ category_name.name }} </a>
+                <a class="text-white" href="{% url 'saxifa' %}">Bosh sahifa /</a>
+                <a class="text-white" href="{% url 'page_category' %}">Kategoriyalar /</a>
+                <a class="text-white" href="#">{{ category_name.name }} </a>
             </div>
         </div>
         <div class="container">
@@ -20,7 +20,7 @@
                         {% for product in products %}
                         <div class="col-md-3">
                             <div class="card">
-                                <a href="{% url 'productdet' product.category.slug product.slug %}">
+                                <a href="#">
                                     <div class="card-body">
                                     <div class="category-image" >
                                         {% if product.product_image %}
@@ -44,4 +44,3 @@
             </div>
         </div>
     {% endblock content %}
-

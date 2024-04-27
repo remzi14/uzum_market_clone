@@ -1,53 +1,84 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from .models import Category,Products
-from .forms import Addcategory,Addproduct
+from .models import Products,Category
+from .forms import Addcategoryform,Addproduct
 from django.contrib import messages
-# Create your views here.
-
-def Categories_View(request):
-    category = Category.objects.filter(status=0)
-    return render(request,'categor.html',{"category":category})
-
-
-def Product_View(request):
-    pro = Products.objects.filter(status=0)
-    return render(request,"product.html",{"pro":pro})
+from django import views
 
 
 
 
-def AddcetegoryView(request):
-    forms=Addcategory()
+def category_view(request):
+    cat=Category.objects.filter(status=0)
+    return render(request,"product_catgory.html",{"cat":cat})
+
+
+def product_view(request):
+    pro=Products.objects.filter(status=0)
+    return render(request,"product_category.html",{"pro":pro})
+
+
+def AddcategoryView(request):
+    forms=Addcategoryform()
     if request.method=="POST":
-        forms=Addcategory(request.POST,request.FILES)
+        forms=Addcategoryform(request.POST,request.FILES)
         if forms.is_valid():
             forms.save()
-            messages.success(request,"Kategoriya yaxshi qo'shildi")
-            return redirect("cate")
+            messages.success(request,"Kategoriya muvaffaqiyatli qo'shildi")
+            return redirect("page_category")
     context={
         "forms":forms
-
     }
-    return render(request,"add_cat.html",context)
+    return render(request,"cat_add.html",context)
 
 
 
 
 
-
-
-def AddpoductView(request):
+def Addprodukt(request):
     forms=Addproduct()
     if request.method=="POST":
         forms=Addproduct(request.POST,request.FILES)
         if forms.is_valid():
             forms.save()
-            messages.success(request,"Yangi product yaxshi qo'shildi !")
-            return redirect("pro_v")
+            messages.success(request,"Product muvaffaqiyatli qo'shildi")
+            return redirect("saxifa")
     context={
         "forms":forms
     }
-    return render(request,"add_product.html",context)
+    return render(request,"add_pro.html",context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def CategoryDetailView(request,slug):
+    if (Category.objects.filter(slug=slug,status=0)):
+        products=Products.objects.filter(category__slug=slug)
+        category_name=Category.objects.filter(slug=slug).first()
+        context={
+            'products':products,
+            'category_name':category_name
+        }
+        return render(request,"category_allproducts.html",context)
+    else:
+        messages.warning(request,"Bu kategoriyada hozircha tovar yo'q")
+        return redirect('cat')
 
 
 

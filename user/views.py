@@ -63,18 +63,7 @@ def user_logout(request):
 
 
 
-def CategoryDetailView(request,slug):
-    if (Category.objects.filter(slug=slug,status=0)):
-        products=Products.objects.filter(category__slug=slug)
-        category_name=Category.objects.filter(slug=slug).first()
-        context={
-            'products':products,
-            'category_name':category_name
-        }
-        return render(request,"products.html",context)
-    else:
-        messages.warning(request,"Bu kategoriyada hozircha tovar yo'q")
-        return redirect('cate')
+
 
 
 

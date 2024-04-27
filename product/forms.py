@@ -2,7 +2,7 @@ from .models import Category,Products
 from django.forms import ModelForm
 
 
-class Addcategory(ModelForm):
+class Addcategoryform(ModelForm):
     class Meta:
         model=Category
         fields="__all__"

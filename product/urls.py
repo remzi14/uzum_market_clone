@@ -1,10 +1,10 @@
+from .views import category_view,AddcategoryView,CategoryDetailView,product_view,Addprodukt
 from django.urls import path
-from .views import Categories_View,AddcetegoryView,AddpoductView,Product_View
-urlpatterns = [
-    path('category/',Categories_View,name="cate"),
-    path('produc/',Product_View,name="pro_v"),
-    path('addcategory/',AddcetegoryView,name="add_cat"),
-    path('adproduct/',AddpoductView,name="add_pro"),
+
+urlpatterns=[
+    path("category/",category_view,name="page_category"),
+    path("add_cat/",AddcategoryView,name="addcat"),
+    path("add_pro/",Addprodukt,name="addpro"),
+    path("product/",product_view,name="pro"),
+    path("category/detail/<str:slug>/",CategoryDetailView,name="detcat"),
 ]
-
-
